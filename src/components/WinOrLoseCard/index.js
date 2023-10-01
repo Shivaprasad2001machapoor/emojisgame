@@ -8,7 +8,9 @@ const WinOrLoseCard = props => {
   return (
     <div className="win-or-lose-card">
       <div className="message-container">
-        <p className="message">{message}</p>
+        <h1 className="message">{message}</h1>
+        <p>"Best Score"</p>
+        <p>"12/12"</p>
         <button
           type="button"
           className="play-again-button"
@@ -18,7 +20,7 @@ const WinOrLoseCard = props => {
         </button>
       </div>
       <div className="image-container">
-        <img className="win-loss-image" src={imageurl} alt="win/loss" />
+        <img className="win-loss-image" src={imageurl} alt="win or lose" />
       </div>
     </div>
   )

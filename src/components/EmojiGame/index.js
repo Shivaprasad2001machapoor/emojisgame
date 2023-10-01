@@ -3,7 +3,7 @@ import './index.css'
 
 import NavBar from '../NavBar'
 import EmojiCard from '../EmojiCard'
-import WinOrLossCard from '../WinOrLoseCard'
+import WinOrLoseCard from '../WinOrLoseCard'
 
 class EmojiGame extends Component {
   state = {
@@ -59,33 +59,42 @@ class EmojiGame extends Component {
     const {score, topScore, isGameLost, isGameWon} = this.state
     const {emojisList} = this.props
 
+    let gameContent
+
+    if (isGameWon) {
+      gameContent = (
+        <WinOrLoseCard
+          message="You Won"
+          onPlayAgain={this.resetGame}
+          isGameWon={isGameWon}
+        />
+      )
+    } else if (isGameLost) {
+      gameContent = (
+        <WinOrLoseCard
+          message="You Lose"
+          onPlayAgain={this.resetGame}
+          isGameWon={isGameWon}
+        />
+      )
+    } else {
+      gameContent = (
+        <ul className="emojis-container">
+          {emojisList.map(eachEmoji => (
+            <EmojiCard
+              key={eachEmoji.id}
+              onemojiClicked={this.onemojiClicked}
+              emojiDetails={eachEmoji}
+            />
+          ))}
+        </ul>
+      )
+    }
+
     return (
       <div className="main-bg-container">
-        <NavBar score={score} topScore={topScore} />
-
-        {isGameWon ? (
-          <WinOrLoseCard
-            message="Congratulations! You won!"
-            onPlayAgain={this.resetGame}
-            isGameWon={isGameWon}
-          />
-        ) : isGameLost ? (
-          <WinOrLoseCard
-            message="Oops! You lost."
-            onPlayAgain={this.resetGame}
-            isGameWon={isGameWon}
-          />
-        ) : (
-          <ul className="emojis-container">
-            {emojisList.map(eachEmoji => (
-              <EmojiCard
-                key={eachEmoji.id}
-                onEmojiClicked={this.onemojiClicked}
-                emojiDetails={eachEmoji}
-              />
-            ))}
-          </ul>
-        )}
+        <NavBar isGameWon={isGameWon} score={score} topScore={topScore} />
+        {gameContent}
       </div>
     )
   }

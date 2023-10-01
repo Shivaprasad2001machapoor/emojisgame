@@ -10,6 +10,7 @@ const NavBar = props => {
           alt="emoji logo"
           className="logo"
         />
+        <h1>Emoji Game</h1>
       </div>
       <div className="score-container">
         <p className="score">Score: {score}</p>
